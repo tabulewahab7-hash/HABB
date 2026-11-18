@@ -1,0 +1,867 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stayora | Find Your Perfect Stay</title>
+<meta name="description" content="Discover hotels, apartments, villas and unforgettable stays with Stayora.">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap');
+
+:root{
+  --green:#163d32;
+  --green2:#245b49;
+  --lime:#d7f36a;
+  --cream:#f7f7f2;
+  --white:#fff;
+  --text:#222b27;
+  --muted:#777d79;
+  --border:#e7e9e3;
+  --shadow:0 15px 45px rgba(20,40,30,.08);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;color:var(--text);background:#fff}
+button,input,select{font:inherit}
+button{cursor:pointer}
+a{text-decoration:none;color:inherit}
+img{max-width:100%;display:block}
+.container{width:min(1200px,92%);margin:auto}
+
+/* NAVIGATION */
+header{
+ position:sticky;top:0;z-index:100;background:rgba(255,255,255,.96);
+ backdrop-filter:blur(15px);border-bottom:1px solid var(--border)
+}
+.nav{height:78px;display:flex;align-items:center;justify-content:space-between}
+.logo{font-size:26px;font-weight:700;color:var(--green);letter-spacing:-1px}
+.logo span{color:#a0c33c}
+.nav-links{display:flex;gap:30px;align-items:center}
+.nav-links a{font-size:14px;color:#454b47;font-weight:500}
+.nav-links a:hover{color:var(--green2)}
+.nav-actions{display:flex;gap:12px;align-items:center}
+.btn{border:0;border-radius:10px;padding:12px 20px;font-weight:600;transition:.2s}
+.btn:hover{transform:translateY(-1px)}
+.btn-dark{background:var(--green);color:white}
+.btn-dark:hover{background:var(--green2)}
+.btn-light{background:#f2f4ee;color:var(--green)}
+.btn-lime{background:var(--lime);color:var(--green)}
+.mobile-menu{display:none;background:none;border:0;font-size:25px}
+
+/* HERO */
+.hero{
+ background:var(--green);color:white;padding:70px 0 55px;
+ position:relative;overflow:hidden
+}
+.hero:before{
+ content:"";position:absolute;width:500px;height:500px;border-radius:50%;
+ background:rgba(215,243,106,.06);right:-100px;top:-200px
+}
+.hero-content{position:relative;z-index:2}
+.hero-tag{color:var(--lime);font-size:12px;letter-spacing:2px;text-transform:uppercase;font-weight:700}
+.hero h1{
+ font-family:'Playfair Display',serif;font-size:clamp(40px,6vw,68px);
+ line-height:1.1;margin:20px 0 15px;max-width:700px
+}
+.hero h1 em{color:var(--lime);font-style:normal}
+.hero p{color:#d4ded8;font-size:16px;max-width:550px;line-height:1.7}
+.hero-bottom{margin-top:35px;display:flex;align-items:center;gap:15px;flex-wrap:wrap}
+.hero-bottom img{width:45px;height:45px;border-radius:50%;border:2px solid white;object-fit:cover}
+.hero-bottom .avatar-group{display:flex}
+.hero-bottom .avatar-group img{margin-left:-10px}
+.hero-bottom .avatar-group img:first-child{margin:0}
+.hero-bottom small{color:#d5dfd9}
+.hero-bottom strong{color:var(--lime)}
+
+/* SEARCH */
+.search-wrap{margin-top:-28px;position:relative;z-index:5}
+.search-box{
+ background:white;padding:15px;display:grid;
+ grid-template-columns:1.5fr 1fr 1fr 1fr auto;
+ gap:8px;border-radius:17px;box-shadow:var(--shadow)
+}
+.search-field{padding:10px 15px;border-right:1px solid var(--border)}
+.search-field label{display:block;font-size:11px;font-weight:700;color:var(--muted);margin-bottom:7px;text-transform:uppercase;letter-spacing:1px}
+.search-field input,.search-field select{
+ width:100%;border:0;outline:0;color:var(--text);background:white;font-size:14px
+}
+.search-btn{align-self:center;height:55px;padding:0 25px;border-radius:12px}
+
+/* CATEGORY */
+.categories{padding:50px 0 25px}
+.section-head{display:flex;justify-content:space-between;align-items:end;margin-bottom:25px;gap:20px}
+.section-head h2{font-family:'Playfair Display',serif;font-size:32px}
+.section-head p{color:var(--muted);font-size:14px;margin-top:6px}
+.category-list{display:flex;gap:12px;overflow-x:auto;padding-bottom:8px}
+.category-btn{
+ white-space:nowrap;border:1px solid var(--border);background:white;
+ border-radius:30px;padding:12px 18px;color:#505650;font-size:14px
+}
+.category-btn:hover,.category-btn.active{background:var(--green);color:white;border-color:var(--green)}
+
+/* LISTINGS */
+.listings{padding:25px 0 80px}
+.property-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:27px}
+.property-card{border:1px solid var(--border);border-radius:18px;overflow:hidden;background:white;transition:.3s}
+.property-card:hover{transform:translateY(-5px);box-shadow:var(--shadow)}
+.property-image{height:245px;position:relative;overflow:hidden}
+.property-image img{width:100%;height:100%;object-fit:cover;transition:.5s}
+.property-card:hover .property-image img{transform:scale(1.04)}
+.tag{position:absolute;top:15px;left:15px;background:white;padding:8px 12px;border-radius:7px;font-size:11px;font-weight:700}
+.favorite{
+ position:absolute;top:13px;right:13px;width:38px;height:38px;
+ border:0;border-radius:50%;background:white;font-size:20px;color:#333
+}
+.favorite.saved{color:#e25264}
+.card-body{padding:18px}
+.card-top{display:flex;justify-content:space-between;gap:10px}
+.card-top h3{font-size:17px}
+.rating{font-size:13px;font-weight:700;white-space:nowrap}
+.rating span{color:#e4a82d}
+.location{color:var(--muted);font-size:13px;margin:7px 0 12px}
+.amenities{display:flex;gap:12px;flex-wrap:wrap;color:#737973;font-size:12px;padding-bottom:15px;border-bottom:1px solid var(--border)}
+.price-row{display:flex;align-items:center;justify-content:space-between;margin-top:15px}
+.price strong{font-size:21px;color:var(--green)}
+.price small{color:var(--muted)}
+.view-btn{background:#f0f3ed;border:0;color:var(--green);font-weight:700;padding:10px 14px;border-radius:9px}
+.view-btn:hover{background:var(--green);color:white}
+
+/* PROMO */
+.promo{padding:0 0 80px}
+.promo-box{
+ background:var(--lime);border-radius:22px;padding:45px;
+ display:flex;align-items:center;justify-content:space-between;gap:30px
+}
+.promo-box h2{font-family:'Playfair Display',serif;font-size:35px;color:var(--green)}
+.promo-box p{margin-top:10px;color:#455a3a;line-height:1.7}
+.promo-box .btn{background:var(--green);color:white}
+
+/* ABOUT */
+.about{padding:75px 0;background:var(--cream)}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center}
+.about-image{height:390px;border-radius:22px;overflow:hidden}
+.about-image img{width:100%;height:100%;object-fit:cover}
+.about h2{font-family:'Playfair Display',serif;font-size:40px;margin-bottom:20px}
+.about p{color:#626b65;line-height:1.9;margin-bottom:18px}
+.stats{display:flex;gap:30px;margin-top:25px}
+.stats strong{display:block;font-size:26px;color:var(--green)}
+.stats small{color:var(--muted)}
+
+/* FOOTER */
+footer{background:#102d24;color:white;padding:50px 0 25px}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:35px}
+footer h3{margin-bottom:18px}
+footer p{color:#c1cec7;line-height:1.8;font-size:14px}
+footer a{display:block;color:#c1cec7;margin-bottom:12px;font-size:14px}
+footer a:hover{color:var(--lime)}
+.footer-bottom{border-top:1px solid #294338;margin-top:35px;padding-top:20px;color:#b4c2ba;font-size:12px}
+
+/* MODAL */
+.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:200;overflow-y:auto;padding:30px 15px}
+.modal.show{display:flex;align-items:center;justify-content:center}
+.modal-content{background:white;width:min(750px,100%);border-radius:20px;overflow:hidden;position:relative}
+.modal-close{position:absolute;right:15px;top:15px;background:white;border:0;width:40px;height:40px;border-radius:50%;font-size:22px;z-index:3}
+.modal-img{width:100%;height:300px;object-fit:cover}
+.modal-body{padding:28px}
+.modal-body h2{font-family:'Playfair Display',serif;font-size:30px;margin-bottom:10px}
+.modal-body p{line-height:1.7;color:#68716b}
+.modal-info{display:flex;gap:15px;flex-wrap:wrap;margin:20px 0}
+.modal-info span{background:#f2f4ee;padding:10px 14px;border-radius:8px;font-size:13px}
+.booking-form{background:var(--cream);padding:20px;border-radius:14px;margin-top:20px}
+.booking-form h3{margin-bottom:15px}
+.booking-form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.booking-form input,.booking-form select{
+ padding:12px;border:1px solid var(--border);border-radius:8px;width:100%;background:white
+}
+.booking-form label{font-size:12px;font-weight:700;display:block;margin-bottom:6px}
+.booking-form .full{grid-column:1/-1}
+.total-price{font-weight:700;font-size:20px;color:var(--green);margin:15px 0}
+.confirm-btn{width:100%;padding:15px}
+.booking-result{display:none;margin-top:15px;padding:15px;background:#e7f5e5;border-radius:10px;color:#214e34}
+.booking-result.show{display:block}
+.empty-state{grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--muted)}
+.toast{position:fixed;bottom:25px;right:25px;background:var(--green);color:white;padding:15px 22px;border-radius:12px;z-index:300;display:none;box-shadow:var(--shadow)}
+.toast.show{display:block}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+ .property-grid{grid-template-columns:repeat(2,1fr)}
+ .search-box{grid-template-columns:1fr 1fr}
+ .search-field{border-right:0;border-bottom:1px solid var(--border)}
+ .search-btn{grid-column:1/-1}
+ .about-grid{grid-template-columns:1fr}
+ .footer-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:600px){
+ .nav{height:68px}
+ .nav-links{display:none;position:absolute;top:68px;left:0;right:0;background:white;padding:20px;flex-direction:column;border-bottom:1px solid var(--border)}
+ .nav-links.open{display:flex}
+ .nav-actions .btn{padding:10px}
+ .mobile-menu{display:block}
+ .hero{padding:50px 0}
+ .hero h1{font-size:42px}
+ .search-box{grid-template-columns:1fr}
+ .search-field{padding:12px 8px}
+ .property-grid{grid-template-columns:1fr}
+ .property-image{height:230px}
+ .section-head h2{font-size:27px}
+ .promo-box{padding:28px;flex-direction:column;align-items:flex-start}
+ .promo-box h2{font-size:29px}
+ .about h2{font-size:32px}
+ .about-image{height:280px}
+ .footer-grid{grid-template-columns:1fr}
+ .booking-form-grid{grid-template-columns:1fr}
+ .booking-form .full{grid-column:auto}
+ .modal-img{height:220px}
+ .modal-body{padding:20px}
+ .stats{gap:15px}
+}
+</style>
+</head>
+<body>
+
+<header>
+ <div class="container nav">
+  <a href="#" class="logo">stayora<span>.</span></a>
+
+  <nav class="nav-links" id="navLinks">
+   <a href="#home">Home</a>
+   <a href="#explore">Explore stays</a>
+   <a href="#about">About us</a>
+   <a href="#contact">Contact</a>
+  </nav>
+
+  <div class="nav-actions">
+   <button class="btn btn-light" onclick="showBookings()">My bookings</button>
+   <button class="btn btn-dark" onclick="scrollToExplore()">Explore</button>
+   <button class="mobile-menu" onclick="toggleMenu()" aria-label="Toggle menu">☰</button>
+  </div>
+ </div>
+</header>
+
+<section class="hero" id="home">
+ <div class="container hero-content">
+  <span class="hero-tag">Travel better. Stay beautifully.</span>
+  <h1>Your next escape<br>starts <em>right here.</em></h1>
+  <p>Discover beautiful stays, hidden gems and unforgettable places. Find a space that feels like home, wherever you go.</p>
+
+  <div class="hero-bottom">
+   <div class="avatar-group">
+    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100" alt="Traveler">
+    <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100" alt="Traveler">
+    <img src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=100" alt="Traveler">
+   </div>
+   <small><strong>2,500+</strong> happy travelers have found their stay</small>
+  </div>
+ </div>
+</section>
+
+<section class="container search-wrap">
+ <form class="search-box" id="searchForm">
+  <div class="search-field">
+   <label>Destination</label>
+   <input id="destination" placeholder="Where do you want to go?">
+  </div>
+  <div class="search-field">
+   <label>Check-in</label>
+   <input type="date" id="checkIn">
+  </div>
+  <div class="search-field">
+   <label>Check-out</label>
+   <input type="date" id="checkOut">
+  </div>
+  <div class="search-field">
+   <label>Guests</label>
+   <select id="guestCount">
+    <option value="1">1 Guest</option>
+    <option value="2" selected>2 Guests</option>
+    <option value="3">3 Guests</option>
+    <option value="4">4 Guests</option>
+    <option value="5">5 Guests</option>
+    <option value="6">6+ Guests</option>
+   </select>
+  </div>
+  <button class="btn btn-dark search-btn" type="submit">⌕ Search stays</button>
+ </form>
+</section>
+
+<section class="container categories" id="explore">
+ <div class="section-head">
+  <div>
+   <h2>Explore stays</h2>
+   <p>Handpicked places for every kind of journey.</p>
+  </div>
+ </div>
+
+ <div class="category-list" id="categoryList">
+  <button class="category-btn active" data-category="All">✦ All stays</button>
+  <button class="category-btn" data-category="Hotel">🏨 Hotels</button>
+  <button class="category-btn" data-category="Apartment">🏢 Apartments</button>
+  <button class="category-btn" data-category="Villa">🏡 Villas</button>
+  <button class="category-btn" data-category="Resort">🌴 Resorts</button>
+  <button class="category-btn" data-category="Cabin">🌲 Cabins</button>
+ </div>
+</section>
+
+<section class="container listings">
+ <div class="section-head">
+  <div>
+   <h2>Popular destinations</h2>
+   <p>Places our guests love the most.</p>
+  </div>
+  <p id="resultsCount"></p>
+ </div>
+ <div class="property-grid" id="propertyGrid"></div>
+</section>
+
+<section class="container promo">
+ <div class="promo-box">
+  <div>
+   <h2>Planning a getaway?</h2>
+   <p>Get 15% off your first booking. Your next adventure<br>is closer than you think.</p>
+  </div>
+  <button class="btn" onclick="scrollToExplore()">Discover your stay →</button>
+ </div>
+</section>
+
+<section class="about" id="about">
+ <div class="container about-grid">
+  <div class="about-image">
+   <img src="https://images.unsplash.com/photo-1601918774946-25832a4be0d6?w=1000" alt="Beautiful hotel">
+  </div>
+  <div>
+   <span class="hero-tag" style="color:#729238">ABOUT STAYORA</span>
+   <h2>Stay somewhere that tells a story.</h2>
+   <p>We believe travel is about more than just a destination. It's about the memories you create, the people you meet, and the places that make you feel at home.</p>
+   <p>Stayora brings together carefully selected hotels, apartments, villas and unique accommodation to help you experience every journey in a special way.</p>
+   <div class="stats">
+    <div><strong>500+</strong><small>Properties</small></div>
+    <div><strong>30+</strong><small>Destinations</small></div>
+    <div><strong>4.9/5</strong><small>Guest rating</small></div>
+   </div>
+  </div>
+ </div>
+</section>
+
+<footer id="contact">
+ <div class="container">
+  <div class="footer-grid">
+   <div>
+    <h3 class="logo" style="color:white">stayora<span>.</span></h3>
+    <p>Discover your perfect place to stay.<br>Make every journey unforgettable.</p>
+   </div>
+   <div>
+    <h3>Explore</h3>
+    <a href="#explore">Hotels</a>
+    <a href="#explore">Apartments</a>
+    <a href="#explore">Villas</a>
+    <a href="#explore">Resorts</a>
+   </div>
+   <div>
+    <h3>Company</h3>
+    <a href="#about">About us</a>
+    <a href="#contact">Contact</a>
+    <a href="#">Terms & conditions</a>
+    <a href="#">Privacy policy</a>
+   </div>
+   <div>
+    <h3>Contact</h3>
+    <p>Email: hello@stayora.com</p>
+    <p>Phone: +256 700 000 000</p>
+    <p>Uganda</p>
+   </div>
+  </div>
+  <div class="footer-bottom">© 2026 Stayora. All rights reserved. Demo booking website.</div>
+ </div>
+</footer>
+
+<!-- PROPERTY MODAL -->
+<div class="modal" id="propertyModal">
+ <div class="modal-content">
+  <button class="modal-close" onclick="closeModal()">×</button>
+  <img id="modalImage" class="modal-img" src="" alt="Property">
+  <div class="modal-body">
+   <h2 id="modalTitle"></h2>
+   <p id="modalLocation"></p>
+   <div class="modal-info" id="modalAmenities"></div>
+   <p id="modalDescription"></p>
+
+   <form class="booking-form" id="bookingForm">
+    <h3>Book your stay</h3>
+    <div class="booking-form-grid">
+     <div>
+      <label>Check-in date</label>
+      <input type="date" id="bookIn" required>
+     </div>
+     <div>
+      <label>Check-out date</label>
+      <input type="date" id="bookOut" required>
+     </div>
+     <div>
+      <label>Guests</label>
+      <select id="bookGuests">
+       <option>1</option><option selected>2</option><option>3</option>
+       <option>4</option><option>5</option><option>6</option>
+      </select>
+     </div>
+     <div>
+      <label>Your full name</label>
+      <input type="text" id="bookName" placeholder="Full name" required>
+     </div>
+     <div class="full">
+      <label>Email address</label>
+      <input type="email" id="bookEmail" placeholder="you@example.com" required>
+     </div>
+    </div>
+    <div class="total-price" id="bookingTotal">Total: Select dates</div>
+    <button class="btn btn-dark confirm-btn" type="submit">Confirm reservation</button>
+    <div class="booking-result" id="bookingResult"></div>
+   </form>
+  </div>
+ </div>
+</div>
+
+<!-- MY BOOKINGS MODAL -->
+<div class="modal" id="bookingsModal">
+ <div class="modal-content">
+  <button class="modal-close" onclick="closeBookings()">×</button>
+  <div class="modal-body">
+   <h2>My bookings</h2>
+   <p>Your reservations saved on this device.</p>
+   <div id="myBookings" style="margin-top:20px"></div>
+  </div>
+ </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// -----------------------------------------
+// PROPERTY DATABASE
+// -----------------------------------------
+const properties = [
+ {
+  id:1,title:"The Green Haven Hotel",location:"Kampala, Uganda",
+  category:"Hotel",price:180000,rating:4.9,reviews:128,
+  image:"https://images.unsplash.com/photo-1566073771259-6a8506099945?w=900",
+  guests:4,bedrooms:2,beds:2,baths:2,
+  amenities:["Swimming pool","Wi-Fi","Breakfast","Air conditioning"],
+  description:"A peaceful luxury hotel with beautiful gardens, spacious rooms, excellent service and a relaxing swimming pool. Perfect for business travelers and holidays."
+ },
+ {
+  id:2,title:"Lakeview Modern Apartment",location:"Entebbe, Uganda",
+  category:"Apartment",price:125000,rating:4.8,reviews:96,
+  image:"https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=900",
+  guests:3,bedrooms:2,beds:2,baths:1,
+  amenities:["Lake view","Wi-Fi","Kitchen","Parking"],
+  description:"Enjoy a modern apartment with beautiful lake views, a fully equipped kitchen, comfortable furnishings and easy access to Entebbe attractions."
+ },
+ {
+  id:3,title:"Palm Luxury Villa",location:"Jinja, Uganda",
+  category:"Villa",price:350000,rating:5.0,reviews:75,
+  image:"https://images.unsplash.com/photo-1613490493576-7 bin?invalid=1",
+  guests:8,bedrooms:4,beds:5,baths:3,
+  amenities:["Private pool","Garden","Wi-Fi","Kitchen"],
+  description:"A private villa designed for families and groups. Enjoy a spacious garden, beautiful interiors, privacy and luxurious amenities."
+ },
+ {
+  id:4,title:"Safari Sunset Resort",location:"Murchison, Uganda",
+  category:"Resort",price:290000,rating:4.9,reviews:144,
+  image:"https://images.unsplash.com/photo-1510798831971-661eb04b3739?w=900",
+  guests:5,bedrooms:2,beds:3,baths:2,
+  amenities:["Safari views","Restaurant","Pool","Wi-Fi"],
+  description:"Experience a relaxing safari-inspired retreat with beautiful scenery, comfortable rooms and easy access to wildlife adventures."
+ },
+ {
+  id:5,title:"Cozy Forest Cabin",location:"Fort Portal, Uganda",
+  category:"Cabin",price:95000,rating:4.7,reviews:63,
+  image:"https://images.unsplash.com/photo-1449158743715-0a90ebb6d2d8?w=900",
+  guests:2,bedrooms:1,beds:1,baths:1,
+  amenities:["Nature","Fireplace","Parking","Mountain view"],
+  description:"Escape into nature with this cozy cabin surrounded by greenery. Ideal for couples, quiet weekends and nature lovers."
+ },
+ {
+  id:6,title:"Golden Sands Beach Hotel",location:"Dar es Salaam, Tanzania",
+  category:"Hotel",price:420000,rating:4.8,reviews:182,
+  image:"https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=900",
+  guests:4,bedrooms:2,beds:2,baths:2,
+  amenities:["Beach","Restaurant","Pool","Spa"],
+  description:"A premium beachfront hotel featuring elegant accommodation, ocean views, spa services and exceptional hospitality."
+ },
+ {
+  id:7,title:"City Centre Executive Suites",location:"Kampala, Uganda",
+  category:"Apartment",price:160000,rating:4.6,reviews:58,
+  image:"https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=900",
+  guests:4,bedrooms:2,beds:2,baths:2,
+  amenities:["City view","Wi-Fi","Kitchen","Security"],
+  description:"Stylish serviced apartments located near business and entertainment areas. A great choice for long and short stays."
+ },
+ {
+  id:8,title:"Mountain Breeze Resort",location:"Kabale, Uganda",
+  category:"Resort",price:260000,rating:4.9,reviews:107,
+  image:"https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=900",
+  guests:6,bedrooms:3,beds:3,baths:2,
+  amenities:["Mountain view","Restaurant","Garden","Wi-Fi"],
+  description:"A beautiful resort overlooking the hills with spacious rooms, fresh air, gardens and scenic surroundings."
+ },
+ {
+  id:9,title:"The White Pearl Villa",location:"Nairobi, Kenya",
+  category:"Villa",price:480000,rating:4.9,reviews:91,
+  image:"https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=900",
+  guests:7,bedrooms:4,beds:4,baths:3,
+  amenities:["Private garden","Pool","Kitchen","Wi-Fi"],
+  description:"Contemporary villa with elegant design, generous space, private outdoor areas and luxury amenities for your getaway."
+ }
+];
+
+let selectedProperty=null;
+let activeCategory="All";
+let searchDestination="";
+let searchGuests=1;
+
+// -----------------------------------------
+// DISPLAY PROPERTIES
+// -----------------------------------------
+function renderProperties(){
+ const grid=document.getElementById("propertyGrid");
+
+ let filtered=properties.filter(p=>{
+  const categoryMatch=activeCategory==="All"||p.category===activeCategory;
+  const locationMatch=!searchDestination||
+   p.location.toLowerCase().includes(searchDestination.toLowerCase())||
+   p.title.toLowerCase().includes(searchDestination.toLowerCase());
+  const guestMatch=p.guests>=searchGuests;
+  return categoryMatch&&locationMatch&&guestMatch;
+ });
+
+ document.getElementById("resultsCount").textContent=filtered.length+" properties";
+
+ if(filtered.length===0){
+  grid.innerHTML=`<div class="empty-state">
+   <h3>No properties found</h3>
+   <p>Try another destination or change your filters.</p>
+   <button class="btn btn-dark" onclick="resetSearch()" style="margin-top:15px">Clear filters</button>
+  </div>`;
+  return;
+ }
+
+ grid.innerHTML=filtered.map(p=>{
+  const saved=isSaved(p.id);
+  return `
+  <article class="property-card">
+   <div class="property-image">
+    <img src="${p.image}" alt="${p.title}" loading="lazy"
+     onerror="this.src='https://images.unsplash.com/photo-1566073771259-6a8506099945?w=900'">
+    <span class="tag">${p.category}</span>
+    <button class="favorite ${saved?'saved':''}" onclick="toggleFavorite(${p.id})" aria-label="Save property">
+     ${saved?'♥':'♡'}
+    </button>
+   </div>
+   <div class="card-body">
+    <div class="card-top">
+     <h3>${p.title}</h3>
+     <div class="rating"><span>★</span> ${p.rating}</div>
+    </div>
+    <p class="location">📍 ${p.location} · ${p.reviews} reviews</p>
+    <div class="amenities">
+     <span>🛏 ${p.beds} beds</span>
+     <span>👥 ${p.guests} guests</span>
+     <span>🚿 ${p.baths} baths</span>
+    </div>
+    <div class="price-row">
+     <div class="price"><strong>${formatMoney(p.price)}</strong><small> / night</small></div>
+     <button class="view-btn" onclick="openProperty(${p.id})">View details →</button>
+    </div>
+   </div>
+  </article>`;
+ }).join("");
+}
+
+// -----------------------------------------
+// CATEGORY FILTERS
+// -----------------------------------------
+document.getElementById("categoryList").addEventListener("click",e=>{
+ const btn=e.target.closest(".category-btn");
+ if(!btn)return;
+ activeCategory=btn.dataset.category;
+ document.querySelectorAll(".category-btn").forEach(b=>b.classList.remove("active"));
+ btn.classList.add("active");
+ renderProperties();
+});
+
+// -----------------------------------------
+// SEARCH
+// -----------------------------------------
+document.getElementById("searchForm").addEventListener("submit",e=>{
+ e.preventDefault();
+ searchDestination=document.getElementById("destination").value.trim();
+ searchGuests=Number(document.getElementById("guestCount").value);
+ renderProperties();
+ scrollToExplore();
+});
+
+function resetSearch(){
+ searchDestination="";
+ searchGuests=1;
+ activeCategory="All";
+ document.getElementById("destination").value="";
+ document.getElementById("guestCount").value="2";
+ document.querySelectorAll(".category-btn").forEach(b=>b.classList.remove("active"));
+ document.querySelector('[data-category="All"]').classList.add("active");
+ renderProperties();
+}
+
+function scrollToExplore(){
+ document.getElementById("explore").scrollIntoView({behavior:"smooth"});
+}
+
+// -----------------------------------------
+// FAVORITES / WISHLIST
+// -----------------------------------------
+function getFavorites(){
+ return JSON.parse(localStorage.getItem("stayora_favorites")||"[]");
+}
+function isSaved(id){return getFavorites().includes(id)}
+function toggleFavorite(id){
+ let favorites=getFavorites();
+ if(favorites.includes(id)){
+  favorites=favorites.filter(x=>x!==id);
+  showToast("Removed from favorites");
+ }else{
+  favorites.push(id);
+  showToast("Added to favorites ♥");
+ }
+ localStorage.setItem("stayora_favorites",JSON.stringify(favorites));
+ renderProperties();
+}
+
+// -----------------------------------------
+// PROPERTY DETAILS
+// -----------------------------------------
+function openProperty(id){
+ selectedProperty=properties.find(p=>p.id===id);
+ if(!selectedProperty)return;
+
+ document.getElementById("modalImage").src=selectedProperty.image;
+ document.getElementById("modalTitle").textContent=selectedProperty.title;
+ document.getElementById("modalLocation").textContent=
+  "📍 "+selectedProperty.location+" · ★ "+selectedProperty.rating;
+ document.getElementById("modalAmenities").innerHTML=
+  `<span>🛏 ${selectedProperty.beds} beds</span>
+   <span>👥 ${selectedProperty.guests} guests</span>
+   <span>🚿 ${selectedProperty.baths} bathrooms</span>
+   <span>🏠 ${selectedProperty.category}</span>`;
+ document.getElementById("modalDescription").textContent=selectedProperty.description;
+
+ document.getElementById("bookIn").value=document.getElementById("checkIn").value;
+ document.getElementById("bookOut").value=document.getElementById("checkOut").value;
+ document.getElementById("bookGuests").value=document.getElementById("guestCount").value;
+
+ document.getElementById("bookingResult").classList.remove("show");
+ document.getElementById("bookingResult").innerHTML="";
+ updateBookingTotal();
+ document.getElementById("propertyModal").classList.add("show");
+ document.body.style.overflow="hidden";
+}
+
+function closeModal(){
+ document.getElementById("propertyModal").classList.remove("show");
+ document.body.style.overflow="";
+}
+
+document.getElementById("propertyModal").addEventListener("click",e=>{
+ if(e.target.id==="propertyModal")closeModal();
+});
+
+// -----------------------------------------
+// BOOKING PRICE CALCULATION
+// -----------------------------------------
+function getNightCount(start,end){
+ if(!start||!end)return 0;
+ const a=new Date(start+"T00:00:00");
+ const b=new Date(end+"T00:00:00");
+ return Math.round((b-a)/86400000);
+}
+
+function formatMoney(amount){
+ return "UGX "+Number(amount).toLocaleString("en-UG");
+}
+
+function updateBookingTotal(){
+ if(!selectedProperty)return;
+ const start=document.getElementById("bookIn").value;
+ const end=document.getElementById("bookOut").value;
+ const nights=getNightCount(start,end);
+ const total=nights>0?nights*selectedProperty.price:0;
+
+ document.getElementById("bookingTotal").textContent=
+ nights>0?`${nights} night(s) × ${formatMoney(selectedProperty.price)} = ${formatMoney(total)}`:
+ "Total: Select valid dates";
+}
+
+["bookIn","bookOut"].forEach(id=>{
+ document.getElementById(id).addEventListener("change",updateBookingTotal);
+});
+
+// -----------------------------------------
+// BOOKING SUBMISSION
+// -----------------------------------------
+document.getElementById("bookingForm").addEventListener("submit",e=>{
+ e.preventDefault();
+ if(!selectedProperty)return;
+
+ const checkIn=document.getElementById("bookIn").value;
+ const checkOut=document.getElementById("bookOut").value;
+ const guests=Number(document.getElementById("bookGuests").value);
+ const name=document.getElementById("bookName").value.trim();
+ const email=document.getElementById("bookEmail").value.trim();
+ const nights=getNightCount(checkIn,checkOut);
+
+ const today=new Date();
+ today.setHours(0,0,0,0);
+
+ if(!checkIn||!checkOut||nights<=0){
+  showToast("Please select valid check-in and check-out dates");
+  return;
+ }
+ if(new Date(checkIn+"T00:00:00")<today){
+  showToast("Check-in date cannot be in the past");
+  return;
+ }
+ if(guests>selectedProperty.guests){
+  showToast("This property cannot accommodate that many guests");
+  return;
+ }
+
+ const total=nights*selectedProperty.price;
+ const booking={
+  reference:"STY-"+Date.now().toString().slice(-8),
+  propertyId:selectedProperty.id,
+  property:selectedProperty.title,
+  location:selectedProperty.location,
+  image:selectedProperty.image,
+  checkIn,checkOut,nights,guests,name,email,total,
+  bookedAt:new Date().toISOString(),
+  status:"Pending"
+ };
+
+ const bookings=JSON.parse(localStorage.getItem("stayora_bookings")||"[]");
+ bookings.push(booking);
+ localStorage.setItem("stayora_bookings",JSON.stringify(bookings));
+
+ const result=document.getElementById("bookingResult");
+ result.innerHTML=`
+  <strong>✓ Reservation request saved!</strong><br><br>
+  Booking reference: <strong>${booking.reference}</strong><br>
+  Guest: ${escapeHTML(name)}<br>
+  Property: ${selectedProperty.title}<br>
+  Stay: ${checkIn} to ${checkOut} (${nights} nights)<br>
+  Total: <strong>${formatMoney(total)}</strong><br><br>
+  This is a demo reservation. No payment has been processed.
+ `;
+ result.classList.add("show");
+ showToast("Booking saved successfully!");
+});
+
+// -----------------------------------------
+// MY BOOKINGS
+// -----------------------------------------
+function showBookings(){
+ const bookings=JSON.parse(localStorage.getItem("stayora_bookings")||"[]");
+ const container=document.getElementById("myBookings");
+
+ if(!bookings.length){
+  container.innerHTML=`<div class="empty-state">
+   <h3>No bookings yet</h3><p>Your reservations will appear here.</p>
+  </div>`;
+ }else{
+  container.innerHTML=bookings.slice().reverse().map(b=>`
+   <div style="border:1px solid var(--border);padding:16px;border-radius:12px;margin-bottom:15px">
+    <div style="display:flex;gap:15px;align-items:center">
+     <img src="${b.image}" alt="" style="width:90px;height:85px;object-fit:cover;border-radius:10px">
+     <div>
+      <strong>${escapeHTML(b.property)}</strong>
+      <p style="font-size:13px;color:var(--muted);margin-top:5px">${escapeHTML(b.location)}</p>
+      <p style="font-size:13px;margin-top:5px">${b.checkIn} → ${b.checkOut}</p>
+     </div>
+    </div>
+    <p style="margin-top:12px;font-size:13px">Reference: <strong>${b.reference}</strong></p>
+    <p style="margin-top:5px">Total: <strong>${formatMoney(b.total)}</strong></p>
+    <p style="margin-top:5px;font-size:12px;color:#8a7a45">Status: ${b.status}</p>
+    <button class="btn btn-light" style="margin-top:12px" onclick="cancelBooking('${b.reference}')">Cancel booking</button>
+   </div>
+  `).join("");
+ }
+
+ document.getElementById("bookingsModal").classList.add("show");
+ document.body.style.overflow="hidden";
+}
+
+function closeBookings(){
+ document.getElementById("bookingsModal").classList.remove("show");
+ document.body.style.overflow="";
+}
+
+function cancelBooking(reference){
+ if(!confirm("Are you sure you want to remove this booking?"))return;
+ let bookings=JSON.parse(localStorage.getItem("stayora_bookings")||"[]");
+ bookings=bookings.filter(b=>b.reference!==reference);
+ localStorage.setItem("stayora_bookings",JSON.stringify(bookings));
+ showBookings();
+ showToast("Booking removed");
+}
+
+// -----------------------------------------
+// UTILITIES
+// -----------------------------------------
+function showToast(message){
+ const toast=document.getElementById("toast");
+ toast.textContent=message;
+ toast.classList.add("show");
+ setTimeout(()=>toast.classList.remove("show"),3000);
+}
+
+function escapeHTML(str){
+ return String(str).replace(/[&<>"']/g,m=>({
+  "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
+ }[m]));
+}
+
+function toggleMenu(){
+ document.getElementById("navLinks").classList.toggle("open");
+}
+
+document.getElementById("navLinks").querySelectorAll("a").forEach(link=>{
+ link.addEventListener("click",()=>document.getElementById("navLinks").classList.remove("open"));
+});
+
+document.getElementById("bookingsModal").addEventListener("click",e=>{
+ if(e.target.id==="bookingsModal")closeBookings();
+});
+
+document.addEventListener("keydown",e=>{
+ if(e.key==="Escape"){closeModal();closeBookings();}
+});
+
+// Set date minimums to today
+const todayString=new Date().toISOString().split("T")[0];
+document.getElementById("checkIn").min=todayString;
+document.getElementById("checkOut").min=todayString;
+document.getElementById("bookIn").min=todayString;
+document.getElementById("bookOut").min=todayString;
+
+document.getElementById("checkIn").addEventListener("change",()=>{
+ const start=document.getElementById("checkIn").value;
+ document.getElementById("checkOut").min=start;
+});
+document.getElementById("bookIn").addEventListener("change",()=>{
+ const start=document.getElementById("bookIn").value;
+ document.getElementById("bookOut").min=start;
+});
+
+// INITIALIZE
+renderProperties();
+</script>
+</body>
+</html>
